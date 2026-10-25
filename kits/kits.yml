@@ -1,0 +1,380 @@
+# =============================================================================
+#  SYPHEROX SKYWARS - KITS
+# =============================================================================
+
+version: 2
+
+settings:
+  default-kit: ninja
+  messages:
+    no-kit: "No Kit"
+    unknown-kit: "&cUnknown Kit: &e{kit}"
+    kit-disabled: "&cThe kit &e{kit} &cis currently disabled."
+    cooldown: "&cCooldown: Remaining &e{seconds}s"
+  sounds:
+    cooldown: "entity.villager.no 1.0 1.2"
+
+kits:
+
+  ninja:
+    enabled: true
+    display-name: "&3Ninja"
+    icon: IRON_SWORD
+    description:
+      - "&7Hit a player to mark him."
+      - "&7Sneak to teleport right behind your target."
+    items: []        
+    ability:
+      type: ninja
+      cooldown: 30
+      max-distance: 25
+      behind-distance: 1.5
+      messages:
+        marked: "&3[Ninja] Target marked: &e{target}"
+        too-far: "&c[Ninja] Target is too far away ({distance}m > {max}m)!"
+      sounds:
+        teleport: "entity.enderman.teleport 1.0 1.0"
+      particles:
+        teleport: "smoke 20 0.3 0.5 0.3 0.05"
+
+  switcher:
+    enabled: true
+    display-name: "&bSwitcher"
+    icon: SNOWBALL
+    description:
+      - "&7Throw your snowball at an enemy"
+      - "&7to swap positions with him."
+    items:
+      - material: SNOWBALL
+        amount: 1
+        name: "&bSwitcher-Snowball"
+        lore:
+          - "&7Usages: &e4/4"
+          - "&7Throw at an enemy,"
+          - "&7to switch positions!"
+          - "&7(30s Cooldown)"
+    ability:
+      type: switcher
+      cooldown: 30
+      uses: 4
+      refill-item:
+        material: SNOWBALL
+        amount: 1
+        name: "&bSwitcher-Schneeball"
+        lore:
+          - "&7Usages: &e{remaining}/{max}"
+          - "&7Throw at an enemy,"
+          - "&7to switch positions!"
+          - "&7({cooldown}s Cooldown)"
+      messages:
+        uses-left: "&bUsages remaining: &e{remaining}/{max} &7({cooldown}s Cooldown)"
+        empty: "&cYour snowsball is out of Usages!"
+      sounds:
+        swap: "entity.enderman.teleport 1.0 1.0"
+      particles:
+        swap: "portal 25 0.4 0.5 0.4 0.1"
+
+  ziege:
+    enabled: true
+    display-name: "&eGoat"
+    icon: GOAT_HORN
+    description:
+      - "&7Blow the horn to dash forward"
+      - "&7in the direction you are looking."
+    items:
+      - material: GOAT_HORN
+        amount: 1
+        name: "&eGoat Horn"
+        lore:
+          - "&7Rightclick: Dash 10 blocks in direction of view!"
+          - "&7Boosts remaining: &a5/5"
+          - "&7(30s Cooldown)"
+    ability:
+      type: goat_horn
+      cooldown: 30
+      uses: 5
+      trigger-item: GOAT_HORN
+      boost-strength: 1.85
+      boost-y-factor: 0.7
+      boost-y-offset: 0.35
+      boost-min-y: 0.35
+      item-lore:
+        - "&7Rightclick: Dash 10 blocks in direction of view!"
+        - "&7Boosts remaining: &a{remaining}/{max}"
+        - "&7({cooldown}s Cooldown)"
+      messages:
+        uses-left: "&eBoosts remaining: &a{remaining}/{max} &7({cooldown}s Cooldown)"
+        empty: "&cYour Goat Horn is out of Usages!"
+      sounds:
+        boost: "item.goat_horn.sound.0 1.2 1.0"
+      particles:
+        boost: "explosion 1"
+
+  enderman:
+    enabled: true
+    display-name: "&5Enderman"
+    icon: ENDER_EYE
+    description:
+      - "&7Use the eye to teleport back to your base."
+      - "&7Every kill gives you an Enderpearl."
+    items:
+      - material: ENDER_EYE
+        amount: 3
+        name: "&dBase Eye"
+        lore:
+          - "&7Rightclick: Teleport back to your base"
+          - "&7(30s Cooldown)"
+    ability:
+      type: enderman
+      cooldown: 30
+      trigger-item: ENDER_EYE
+      countdown: 3
+      messages:
+        already: "&dTeleportation is already starting!"
+        countdown: "&dTeleportation back to your base in &e{seconds}s&d..."
+      sounds:
+        tick: "block.note_block.pling 1.0 1.2"
+        teleport: "entity.enderman.teleport 1.0 1.0"
+      particles:
+        tick: "portal 20 0.3 0.5 0.3 0.05"
+        arrive: "portal 30 0.5 0.5 0.5 0.1"
+    kill-reward:
+      items:
+        - material: ENDER_PEARL
+          amount: 1
+      message: "&5[Enderman] &e+1 Enderpearl &5received for your kill!"
+      sound: "entity.item.pickup 1.0 1.2"
+
+  bandit:
+    enabled: true
+    display-name: "&6Bandit"
+    icon: ALLAY_SPAWN_EGG
+    description:
+      - "&7Send an Allay to the nearest enemy."
+      - "&7It copies his inventory - sneak to clone one item."
+    items:
+      - material: ALLAY_SPAWN_EGG
+        amount: 1
+        name: "&6Thief Allay"
+        lore:
+          - "&7Rightclick: Copy the nearest enemy's inventory"
+          - "&7(30s Cooldown)"
+    ability:
+      type: bandit
+      cooldown: 30
+      trigger-item: ALLAY_SPAWN_EGG
+      search-radius: 35
+      speed: 0.85
+      arrive-distance: 2.0
+      arrive-after-ticks: 80
+      max-ticks: 120
+      gui-filler: GRAY_STAINED_GLASS_PANE
+      messages:
+        allay-name: "&6Allay ({player})"
+        gui-title: "&6Clone item"
+        no-target: "&cNo opponent found within a {radius}-block radius!"
+        copied: "&6Allay copied the inventory of &e{target}"
+        choose: "&aSneak to choose an item"
+        cloned: "&aYou have &e{item} &acloned!"
+      sounds:
+        arrive: "entity.allay.item_taken 1.0 1.0"
+        clone: "entity.item.pickup 1.0 1.2"
+      particles:
+        arrive: "happy_villager 20 0.3 0.3 0.3 0.1"
+
+  wolke:
+    enabled: true
+    display-name: "&fCloud"
+    icon: WHITE_STAINED_GLASS
+    description:
+      - "&7Summon a cloud platform under your feet."
+      - "&7It follows you for a few seconds."
+    items:
+      - material: WHITE_STAINED_GLASS
+        amount: 3
+        name: "&fCloud"
+        lore:
+          - "&7Rightclick: Create a cloud platform"
+          - "&7(30s Cooldown)"
+    ability:
+      type: cloud
+      cooldown: 30
+      trigger-items: [WHITE_STAINED_GLASS, GLASS]
+      block: WHITE_STAINED_GLASS
+      duration: 10
+      radius: 1
+      sounds:
+        place: "block.snow.place 1.0 1.0"
+        end: "block.powder_snow.break 1.0 1.0"
+      particles:
+        build: "cloud 10 0.8 0.1 0.8 0.05"
+
+  teufel:
+    enabled: true
+    display-name: "&cDevil"
+    icon: BLAZE_POWDER
+    description:
+      - "&7Sneak to summon two Vexes"
+      - "&7that hunt the nearest enemy."
+    items: []
+    ability:
+      type: devil
+      cooldown: 30
+      vex-count: 2
+      vex-lifetime: 15
+      search-radius: 25
+      messages:
+        vex-name: "&cVex ({player})"
+        spawned: "&c{count} Vexes spawned!"
+      sounds:
+        spawn: "entity.vex.charge 1.0 1.0"
+      particles:
+        despawn: "smoke 15 0.2 0.2 0.2 0.05"
+
+  phantom:
+    enabled: true
+    display-name: "&9Phantom"
+    icon: PHANTOM_MEMBRANE
+    description:
+      - "&7Fly up for a moment,"
+      - "&7then glide down safely."
+    items:
+      - material: PHANTOM_MEMBRANE
+        amount: 3
+        name: "&9Phantom Membrane"
+        lore:
+          - "&7Rightclick: Levitate, then glide"
+          - "&7(30s Cooldown)"
+    ability:
+      type: phantom
+      cooldown: 30
+      trigger-item: PHANTOM_MEMBRANE
+      phase-seconds: 3
+      effects-start: ["levitation 11 0"]
+      effects-end: ["slow_falling 2 1"]
+      sounds:
+        start: "entity.phantom.flap 1.0 1.0"
+        end: "entity.phantom.flap 1.0 0.8"
+
+  enterharken:
+    enabled: true
+    display-name: "&aGrappling Hook"
+    icon: FISHING_ROD
+    description:
+      - "&7Cast your rod and reel in"
+      - "&7to pull yourself to the hook."
+    items:
+      - material: FISHING_ROD
+        amount: 1
+        name: "&aGrappling Hook"
+        unbreakable: true
+        lore:
+          - "&7Cast and reel in to pull yourself"
+          - "&7(30s Cooldown)"
+    ability:
+      type: grappling_hook
+      cooldown: 30
+      label: "Grappling Hook"
+      trigger-item: FISHING_ROD
+      min-distance: 1.8
+      pull-factor: 0.28
+      max-pull: 2.2
+      lift: 0.45
+      max-y: 1.25
+      sounds:
+        pull: "entity.arrow.shoot 1.0 0.7"
+      particles:
+        pull: "crit 10 0.2 0.2 0.2 0.1"
+
+  stampfer:
+    enabled: true
+    display-name: "&7Stomper"
+    icon: IRON_BOOTS
+    description:
+      - "&7Land hard and your fall damage"
+      - "&7hits every enemy around you instead."
+    items: []
+    ability:
+      type: stomper
+      cooldown: 30
+      label: "Stomper"
+      radius: 5
+      min-fall-damage: 1.0
+      max-self-damage: 2.0
+      sounds:
+        stomp: "entity.zombie.break_wooden_door 1.2 0.8"
+      particles:
+        stomp: "explosion 1"
+
+  elytra:
+    enabled: true
+    display-name: "&aElytra"
+    icon: ELYTRA
+    description:
+      - "&7Glide across the map."
+      - "&7Every kill gives you a Firework Rocket."
+    items:
+      - material: FIREWORK_ROCKET
+        amount: 3
+    armor:
+      chestplate:
+        material: ELYTRA
+        unbreakable: true
+    kill-reward:
+      items:
+        - material: FIREWORK_ROCKET
+          amount: 1
+      message: "&e+1 Rocket &areceived for your kill!"
+      sound: "entity.item.pickup 1.0 1.2"
+
+  engel:
+    enabled: true
+    display-name: "&eAngel"
+    icon: TOTEM_OF_UNDYING
+    description:
+      - "&7A Totem saves you from the void"
+      - "&7and brings you back to your base."
+      - "&7Every kill gives you a Golden Apple."
+    items:
+      - material: TOTEM_OF_UNDYING
+        amount: 1
+        name: "&eVoid Totem"
+        lore:
+          - "&7Saves you once from the void"
+    kill-reward:
+      items:
+        - material: GOLDEN_APPLE
+          amount: 1
+      message: "&e&6+1 Golden Apple &ereceived for your kill!"
+      sound: "entity.item.pickup 1.0 1.2"
+    void-save:
+      item: TOTEM_OF_UNDYING
+      heal-to: 6.0
+      effects: ["regeneration 5 1", "absorption 5 1", "fire_resistance 40 0"]
+      sound: "item.totem.use 1.0 1.0"
+
+  jaeger:
+    enabled: true
+    display-name: "&2Hunter"
+    icon: BOW
+    description:
+      - "&7Every kill gives you"
+      - "&7one permanent extra heart."
+    items: []
+    kill-reward:
+      max-health: 2.0
+      message: "&a+1 permanent Heart &2received for your kill!!"
+      sound: "entity.player.levelup 1.0 1.2"
+
+  panzer:
+    enabled: true
+    display-name: "&8Tank"
+    icon: NETHERITE_CHESTPLATE
+    description:
+      - "&7Heavy armor. Every kill gives you"
+      - "&730 seconds of Resistance."
+    items: []
+    kill-reward:
+      potions: ["resistance 30 0"]
+      message: "&7You have received &e30 seconds of &7resistance!"
+      sound: "item.armor.equip_netherite 1.0 1.0"
