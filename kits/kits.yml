@@ -19,7 +19,7 @@ kits:
   ninja:
     enabled: true
     display-name: "&3Ninja"
-    icon: IRON_SWORD
+    icon: DIAMOND_AXE
     description:
       - "&7Hit a player to mark him."
       - "&7Sneak to teleport right behind your target."
@@ -113,7 +113,7 @@ kits:
   enderman:
     enabled: true
     display-name: "&5Enderman"
-    icon: ENDER_EYE
+    icon: ENDER_PEARL
     description:
       - "&7Use the eye to teleport back to your base."
       - "&7Every kill gives you an Enderpearl."
