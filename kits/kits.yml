@@ -5,7 +5,7 @@
 version: 2
 
 settings:
-  default-kit: ninja
+  default-kit: engel
   messages:
     no-kit: "No Kit"
     unknown-kit: "&cUnknown Kit: &e{kit}"
