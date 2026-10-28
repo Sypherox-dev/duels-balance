@@ -2,7 +2,7 @@
 #  SYPHEROX SKYWARS - KITS
 # =============================================================================
 
-version: 2
+version: 3
 
 settings:
   default-kit: engel
@@ -30,8 +30,8 @@ kits:
       max-distance: 25
       behind-distance: 1.5
       messages:
-        marked: "&3[Ninja] Target marked: &e{target}"
-        too-far: "&c[Ninja] Target is too far away ({distance}m > {max}m)!"
+        marked: "&3Target marked: &e{target}"
+        too-far: "&cTarget is too far away!"
       sounds:
         teleport: "entity.enderman.teleport 1.0 1.0"
       particles:
@@ -60,7 +60,7 @@ kits:
       refill-item:
         material: SNOWBALL
         amount: 1
-        name: "&bSwitcher-Schneeball"
+        name: "&bSwitcher-Snowball"
         lore:
           - "&7Usages: &e{remaining}/{max}"
           - "&7Throw at an enemy,"
@@ -92,7 +92,7 @@ kits:
     ability:
       type: goat_horn
       cooldown: 30
-      uses: 5
+      uses: 4
       trigger-item: GOAT_HORN
       boost-strength: 1.85
       boost-y-factor: 0.7
@@ -142,7 +142,7 @@ kits:
       items:
         - material: ENDER_PEARL
           amount: 1
-      message: "&5[Enderman] &e+1 Enderpearl &5received for your kill!"
+      message: "&e+1 Enderpearl &5received for your kill!"
       sound: "entity.item.pickup 1.0 1.2"
 
   bandit:
@@ -191,7 +191,7 @@ kits:
       - "&7It follows you for a few seconds."
     items:
       - material: WHITE_STAINED_GLASS
-        amount: 3
+        amount: 4
         name: "&fCloud"
         lore:
           - "&7Rightclick: Create a cloud platform"
@@ -249,9 +249,9 @@ kits:
       type: phantom
       cooldown: 30
       trigger-item: PHANTOM_MEMBRANE
-      phase-seconds: 3
-      effects-start: ["levitation 11 0"]
-      effects-end: ["slow_falling 2 1"]
+      phase-seconds: 5
+      effects-start: ["levitation 5 11"]
+      effects-end: ["slow_falling 3 2"]
       sounds:
         start: "entity.phantom.flap 1.0 1.0"
         end: "entity.phantom.flap 1.0 0.8"
@@ -270,10 +270,10 @@ kits:
         unbreakable: true
         lore:
           - "&7Cast and reel in to pull yourself"
-          - "&7(30s Cooldown)"
+          - "&7(1s Cooldown)"
     ability:
       type: grappling_hook
-      cooldown: 30
+      cooldown: 1
       label: "Grappling Hook"
       trigger-item: FISHING_ROD
       min-distance: 1.8
