@@ -267,7 +267,7 @@ kits:
       - material: FISHING_ROD
         amount: 1
         name: "&aGrappling Hook"
-        unbreakable: true
+        unbreakable: false
         lore:
           - "&7Cast and reel in to pull yourself"
           - "&7(1s Cooldown)"
